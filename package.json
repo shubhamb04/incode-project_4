@@ -1,0 +1,32 @@
+{
+  "name": "incode-project_4",
+  "version": "1.0.0",
+  "description": "- Implementing user accounts and authentication.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app",
+    "create-db": "psql -U postgres -f sql/create_db.sql",
+    "create-tables": "psql -U postgres -d mrcoffee -f sql/create_tables.sql",
+    "seed-tables": "psql -U postgres -d mrcoffee -f sql/seed_table.sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhamb04/incode-project_4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhamb04/incode-project_4/issues"
+  },
+  "homepage": "https://github.com/shubhamb04/incode-project_4#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg-promise": "^10.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
