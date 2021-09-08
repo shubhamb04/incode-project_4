@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app",
     "create-db": "psql -U postgres -f sql/create_db.sql",
-    "create-tables": "psql -U postgres -d mrcoffee -f sql/create_tables.sql",
-    "seed-tables": "psql -U postgres -d mrcoffee -f sql/seed_table.sql"
+    "create-tables": "psql -U postgres -d mrcoffeep4 -f sql/create_tables.sql",
+    "seed-tables": "psql -U postgres -d mrcoffeep4 -f sql/seed_table.sql"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,11 @@
   },
   "homepage": "https://github.com/shubhamb04/incode-project_4#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "pg-promise": "^10.11.0"
   },
   "devDependencies": {
