@@ -11,6 +11,9 @@ const port = process.env.PORT;
 //veiw engine
 app.set('view engine', 'ejs')
 
+//middlewares
+app.use(express.json());
+
 app.get('/', (req, res) => {
     res.send("Hello World!")
 })

@@ -2,11 +2,11 @@ DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY NOT NULL,
-    surname VARCHAR(255) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
-    email_id VARCHAR(100) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    UNIQUE (email_id),
+    UNIQUE (email),
     created_at TIMESTAMPTZ DEFAULT now()
 );
 
