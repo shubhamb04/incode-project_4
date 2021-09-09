@@ -8,7 +8,7 @@
     "dev": "nodemon app",
     "create-db": "psql -U postgres -f sql/create_db.sql",
     "create-tables": "psql -U postgres -d mrcoffeep4 -f sql/create_tables.sql",
-    "seed-tables": "psql -U postgres -d mrcoffeep4 -f sql/seed_table.sql"
+    "seed-tables": "psql -U postgres -d mrcoffeep4 -f sql/seed_tables.sql"
   },
   "repository": {
     "type": "git",
