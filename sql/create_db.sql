@@ -1,1 +1,3 @@
-CREATE DATABASE mrcoffee;
+DROP DATABASE IF EXISTS mrcoffee;
+
+CREATE DATABASE mrcoffeep4;
