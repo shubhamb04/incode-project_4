@@ -9,6 +9,7 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+   
   res.render("../view/pages/login");
 });
 
@@ -26,20 +27,26 @@ router.post(
       .normalizeEmail()
       .trim()
       .toLowerCase(),
-    check(
-      "password"
-    ).isLength({
-          minLength: 8
-      }).withMessage("Password must be greater than 8 characters!"),
-    check("confirm_password", "Password does not match!")
-      .custom((value, { req }) => value === req.body.password),
+    check("password")
+      .isStrongPassword({
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+      })
+      .withMessage(
+        "Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, and one number!"
+      ),
+    check("confirm_password", "Password does not match!").custom(
+      (value, { req }) => value === req.body.password
+    ),
   ],
   async (req, res) => {
     try {
       //input validation
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-          const errMsgs = errors.array();
+        const errMsgs = errors.array();
         res.render("../view/pages/signup", { errMsgs });
       }
 
@@ -58,7 +65,9 @@ router.post(
       ]);
 
       if (user.length !== 0) {
-        res.redirect("/login?msg=User%20already%20exists!");
+        res.render("../view/pages/signup", {
+          message: "User already registered!",
+        });
       } else {
         //bcrypt the password
         const hash = await bcrypt.hash(password, 10);
@@ -70,7 +79,9 @@ router.post(
           [firstname, lastname, email, hash]
         );
 
-        res.render("../view/pages/login", {message: "Successfully registered! Please login."});
+        res.render("../view/pages/login", {
+          message: "Successfully registered! Please login.",
+        });
       }
     } catch (error) {
       console.log(error.message);
@@ -79,6 +90,7 @@ router.post(
   }
 );
 
+//login post route
 router.post(
   "/login",
   [
@@ -110,12 +122,27 @@ router.post(
       );
 
       if (!user) {
-        res.render("../view/pages/login", {message: "Invalid email or password!"});
+        res.render("../view/pages/login", {
+          message: "Invalid email or password!",
+        });
       } else {
-        res.send(user);
+        bcrypt.compare(password, user.password, (err, result) => {
+          try {
+              if (result) {
+                req.session.userId = user.user_id; 
+                res.send("Successfully logged in!");
+                 
+            } else {
+              res.render("../view/pages/login", {
+                message: "Invalid email or password!",
+              });
+            }
+          } catch (err) {
+            console.log(err);
+            res.send(err);
+          }
+        });
       }
-
-      // res.send(req.body)
     } catch (error) {
       console.log(error);
     }

@@ -1,10 +1,12 @@
 const express = require('express');
 require('dotenv').config();
 const morgan = require('morgan');
+const session = require("express-session")
 const app = express();
 const path = require('path')
-const db = require('./db/database')
-const authRoutes = require('./routes/authRoutes')
+const signupRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
+const homeRouter = require('./routes/home');
 const bodyParser = require('body-parser')
 
 const port = process.env.PORT;
@@ -16,11 +18,25 @@ app.set('view engine', 'ejs')
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
+//session config
+app.use(session({
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24
+    },
+    name: "mrcoffee_sid",
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESS_SECRET
+}));
+
 app.get('/', (req, res) => {
     res.render('../view/pages/login')
 })
 
-app.use(authRoutes)
+//routes middleware
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/home', homeRouter);
 
 //setting static folder
 app.use(express.static(path.join(__dirname, 'public')))
