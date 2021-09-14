@@ -7,7 +7,9 @@ const path = require('path')
 const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
 const homeRouter = require('./routes/home');
+const logoutRouter = require('./routes/logout')
 const bodyParser = require('body-parser')
+const {redirectToHome, redirectToLogin} = require('./middleware')
 
 const port = process.env.PORT;
 
@@ -23,20 +25,26 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 * 24
     },
-    name: "mrcoffee_sid",
+    name: "schedule_sid",
     resave: false,
     saveUninitialized: false,
     secret: process.env.SESS_SECRET
 }));
 
-app.get('/', (req, res) => {
-    res.render('../view/pages/login')
-})
+// app.get('/', (req, res) => {
+//     res.render('../view/pages/login')
+// })
 
 //routes middleware
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
-app.use('/home', homeRouter);
+app.use((req, res, next) => {
+    res.locals.session = req.session.userId;
+    next();
+    
+})
+app.use('/signup', redirectToHome,  signupRouter);
+app.use('/login', redirectToHome, loginRouter);
+app.use('/logout', redirectToLogin, logoutRouter)
+app.use('/', homeRouter);
 
 //setting static folder
 app.use(express.static(path.join(__dirname, 'public')))
