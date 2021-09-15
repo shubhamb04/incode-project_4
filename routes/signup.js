@@ -32,7 +32,7 @@ router.post(
         minNumbers: 1,
       })
       .withMessage(
-        "Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, and one number!"
+        "Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, one number & a special character!"
       ),
     check("confirm_password", "Password does not match!").custom(
       (value, { req }) => value === req.body.password
@@ -50,7 +50,7 @@ router.post(
       } = req.body;
 
       //input validation
-        const errors = validationResult(req)
+      const errors = validationResult(req)
       if (!errors.isEmpty()) {
         const errMsgs = errors.array();
         res.render("../view/pages/signup", { errMsgs });
