@@ -8,8 +8,10 @@ const signupRouter = require('./routes/signup');
 const loginRouter = require('./routes/login');
 const homeRouter = require('./routes/home');
 const logoutRouter = require('./routes/logout')
+const scheduleRouter = require('./routes/schedule')
 const bodyParser = require('body-parser')
-const {redirectToHome, redirectToLogin} = require('./middleware')
+const { redirectToHome, redirectToLogin } = require('./middleware')
+const flash = require('express-flash')
 
 const port = process.env.PORT;
 
@@ -31,12 +33,10 @@ app.use(session({
     secret: process.env.SESS_SECRET
 }));
 
-// app.get('/', (req, res) => {
-//     res.render('../view/pages/login')
-// })
+app.use(flash());
 
 //routes middleware
-app.use((req, res, next) => {
+app.use((req, res, next) => { 
     res.locals.session = req.session.userId;
     next();
     
@@ -44,6 +44,7 @@ app.use((req, res, next) => {
 app.use('/signup', redirectToHome,  signupRouter);
 app.use('/login', redirectToHome, loginRouter);
 app.use('/logout', redirectToLogin, logoutRouter)
+app.use('/new', redirectToLogin, scheduleRouter)
 app.use('/', homeRouter);
 
 //setting static folder
