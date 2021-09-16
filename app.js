@@ -44,8 +44,8 @@ app.use((req, res, next) => {
 app.use('/signup', redirectToHome,  signupRouter);
 app.use('/login', redirectToHome, loginRouter);
 app.use('/logout', redirectToLogin, logoutRouter)
-app.use('/new', redirectToLogin, scheduleRouter)
-app.use('/', homeRouter);
+app.use('/schedule', redirectToLogin, scheduleRouter)
+app.use('/home', homeRouter);
 
 //setting static folder
 app.use(express.static(path.join(__dirname, 'public')))

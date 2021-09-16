@@ -3,6 +3,7 @@ const router = Router();
 const db = require("../db/database");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const session = require("express-session");
 
 router.get("/", (req, res) => {
    
@@ -49,8 +50,9 @@ router.post(
         bcrypt.compare(password, user.password, (err, result) => {
           try {
               if (result) {
-                req.session.userId = user.user_id; 
-                res.redirect("/");
+                req.session.userId = user.user_id;
+                req.session.userEmail = user.email;
+                res.redirect("/home");
                  
             } else {
               res.redirect('/login?message=Email%20or%20password%20is%20incorrect.');
