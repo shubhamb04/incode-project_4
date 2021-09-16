@@ -1,0 +1,41 @@
+<%- include ("../partials/header") %>
+
+<table class="table table-info">
+  <thead>
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Schedule ID</th>
+      <th scope="col">Day</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+    </tr>
+  </thead>
+
+  <% givenUser.forEach((user)=> { %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= user.user_id %></th>
+      <td>
+        <a class="text-decoration-none" href="/users/<%= user.user_id %> ">
+          <%= user.firstname %>
+        </a>
+      </td>
+      <td><%= user.lastname %></td>
+      <td><%= user.email %></td>
+      <td><%= user.schedule_id %></td>
+      <td><%= user.day %></td>
+      <td><%= user.start_time %></td>
+      <td><%= user.end_time %></td>
+      <td>
+        <a class="btn btn-primary" href="/users/<%= user.user_id %>/Schedules "
+          >View</a
+        >
+      </td>
+    </tr>
+  </tbody>
+
+  <% }) %>
+</table>
