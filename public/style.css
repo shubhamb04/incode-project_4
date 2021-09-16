@@ -151,3 +151,7 @@ idance .timetable {
 .idance .schedule .tab-pane {
   padding-top: 10px;
 }
+
+.card {
+  max-width: 400px;
+}

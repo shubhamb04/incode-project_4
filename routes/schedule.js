@@ -6,7 +6,7 @@ const db = require("../db/database");
 router.get('/', async (req, res) => {
     try {
         const schedules = await db.manyOrNone(
-    "SELECT user_id, day, TO_CHAR(start_time, 'HH12:MI AM') start_time, TO_CHAR(end_time, 'HH12:MI AM') end_time FROM schedules where user_id = $1", [req.session.userId]
+    "SELECT user_id, schedule_id, day, TO_CHAR(start_time, 'HH12:MI AM') start_time, TO_CHAR(end_time, 'HH12:MI AM') end_time FROM schedules where user_id = $1", [req.session.userId]
         );
         res.render('../view/pages/schedules' , {user_id: req.session.user_id, schedules, userEmail: req.session.userEmail})
     } catch (error) {
@@ -26,7 +26,15 @@ router.post('/', [
         if (!errors.isEmpty()) {
             const errMsgs = errors.array()
             res.render("../view/pages/schedules", {errMsgs})
-        } else {   
+        } else {
+
+
+
+            // const times = await db.any("SELECT start_time, end_time FROM schedules WHERE user_id = $1;", req.session.userId)
+            // times.forEach(element => {
+            //     if (element.start_time < start_time && start_time < element.end_time
+            //         || )
+            // });
                  await db.none("INSERT INTO schedules (user_id, day, start_time, end_time) VALUES ($1,$2,$3,$4);", [req.session.userId, Number(day), start_time, end_time]);
 
                 res.redirect('/schedule')
@@ -35,6 +43,17 @@ router.post('/', [
         } catch (error) {
             console.log(error);
         }
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        await db.query("DELETE FROM schedules WHERE schedule_id = $1;", req.params.id)
+
+        res.redirect('/schedule')
+    } catch (error) {
+        console.log(error);
+    }
+    
 })
 
 module.exports = router
