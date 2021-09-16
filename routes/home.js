@@ -20,7 +20,7 @@ router.get("/:id", redirectToLogin, async(req, res) => {
   const userID = Number(req.params.id)
   
   const givenUser = await db.any("SELECT * FROM users LEFT JOIN schedules ON users.user_id = schedules.user_id WHERE users.user_id = $1;", userID)
-  
+
   res.render('../view/pages/user', {givenUser})
 })
 

@@ -56,7 +56,7 @@
   <div class="row row-cols-1 row-cols-md-2 g-4 p-5">
     <% schedules.forEach(schedule => { %>
     <div class="col">
-      <div class="card p-3 text-secondary">
+      <div class="card p-3 m-3 text-secondary">
         <img
           src="/img/full_logo_dark.png"
           class="card-img-top coffee_logo"
@@ -64,12 +64,12 @@
         />
         <div class="card-body">
           <h5 class="card-title"><strong>Id:</strong> <%= schedule.user_id %> </h5>
-          <h5 class="card-title"><strong>Username:</strong> <a href="" class="text-info"><%= userEmail %></a></h5>
+          <h5 class="card-title"><strong>Username:</strong> <a href="/home/<%= schedule.user_id %>" class="text-info"><%= userEmail %></a></h5>
           <p class="card-text"><strong>Day:</strong> <%= schedule.day %></p>
           <p class="card-text">
             <strong>Time:</strong> <%= schedule.start_time %> - <%=
             schedule.end_time %>
-          </p>
+          </p><button class="btn btn btn-danger" onclick="handleDelete(schedule.schedule_id)" >Delete</button>
         </div>
       </div>
     </div>
