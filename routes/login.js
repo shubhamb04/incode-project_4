@@ -35,7 +35,7 @@ router.post(
         
       if (!errors.isEmpty()) {
         const errMsgs = errors.array();
-        res.render("../view/pages/login", { errMsgs });
+        res.render("../view/pages/login", {errMsgs});
       } else {
 
           //check if email exists in db
