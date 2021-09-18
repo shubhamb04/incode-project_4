@@ -19,11 +19,11 @@
           <a class="nav-link">Sun</a>
         </nav>
 
-        <% schedules.forEach(schedule => { %>
         <div class="tab-content">
           <div class="tab-pane show active">
             <div class="row">
               <!-- Schedule Item 1 -->
+              <% schedules.forEach(schedule => { %>
               <div class="col-md-6">
                 <div class="timetable-item">
                   <div class="timetable-item-img">
@@ -36,6 +36,9 @@
                     <div class="timetable-item-time">
                       <%= schedule.start_time %> - <%= schedule.end_time %>
                     </div>
+                    <div class="timetable-item-name text-capitalize">
+                      <%= schedule.firstname %> <%= schedule.lastname %>
+                    </div>
                     <div class="timetable-item-name"><%= schedule.email %></div>
                     <a
                       href="/home/<%= schedule.user_id %> "
@@ -46,16 +49,16 @@
                       <i class="fa fa-heart-o" aria-hidden="true"></i>
                       <i class="fa fa-heart" aria-hidden="true"></i>
                       <div class="timetable-item-like-count">
-                        <%= schedule.user_id %>
+                        <strong>User Id: </strong><%= schedule.user_id %>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <% }) %>
             </div>
           </div>
         </div>
-        <% }) %>
       </div>
     </div>
   </div>

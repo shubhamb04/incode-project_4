@@ -9,9 +9,11 @@ const loginRouter = require('./routes/login');
 const homeRouter = require('./routes/home');
 const logoutRouter = require('./routes/logout')
 const scheduleRouter = require('./routes/schedule')
+const newScheduleRouter = require('./routes/newSchedule')
 const bodyParser = require('body-parser')
 const { redirectToHome, redirectToLogin } = require('./middleware')
 const flash = require('express-flash')
+
 
 const port = process.env.PORT;
 
@@ -45,6 +47,7 @@ app.use('/signup', redirectToHome,  signupRouter);
 app.use('/login', redirectToHome, loginRouter);
 app.use('/logout', redirectToLogin, logoutRouter)
 app.use('/schedule', redirectToLogin, scheduleRouter)
+app.use('/newSchedule', redirectToLogin, newScheduleRouter)
 app.use('/home', homeRouter);
 
 //setting static folder
