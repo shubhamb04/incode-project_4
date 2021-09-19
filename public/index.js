@@ -7,7 +7,10 @@ const weekDay = document.querySelectorAll(".day strong")
 navLinks.forEach(link => {
     link.addEventListener("click", () => {
 
-        
+        navLinks.forEach(navlink => {
+            navlink.classList.remove("active")
+        })
+        link.classList.add("active")
         
         weekDay.forEach((day, index) => {
             if (link.innerHTML === "reset") {
