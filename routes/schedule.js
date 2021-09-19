@@ -14,11 +14,28 @@ const handleDelete = async (schedId) => {
             }
         }
 
+        //function to convert day number to day name
+const daysTransformation = (schedules) => {
+  schedules.forEach(schedule => {
+      const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+
+      days.forEach((weekday, index) => {
+        if (schedule.day === index + 1) {
+          schedule.day = weekday;
+        }
+      })
+  })
+  return schedules
+}
+
 router.get('/', async (req, res) => {
     try {
         const schedules = await db.manyOrNone(
     "SELECT user_id, schedule_id, day, TO_CHAR(start_time, 'HH12:MI AM') start_time, TO_CHAR(end_time, 'HH12:MI AM') end_time FROM schedules where user_id = $1", [req.session.userId]
         );
+
+        //tranforming week days name
+        daysTransformation(schedules);
         res.render('../view/pages/schedules' , {user_id: req.session.user_id, schedules, userEmail: req.session.userEmail, handleDelete, errMsgs: req.query.errMsgs})
     } catch (error) {
         console.log(error);

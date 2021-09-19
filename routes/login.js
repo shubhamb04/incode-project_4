@@ -52,7 +52,7 @@ router.post(
               if (result) {
                 req.session.userId = user.user_id;
                 req.session.userEmail = user.email;
-                res.redirect("/home");
+                res.redirect("/");
                  
             } else {
               res.redirect('/login?message=Email%20or%20password%20is%20incorrect.');

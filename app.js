@@ -20,6 +20,9 @@ const port = process.env.PORT;
 //veiw engine
 app.set('view engine', 'ejs')
 
+//setting static folder
+app.use(express.static(path.join(__dirname, 'public')))
+
 //middlewares
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -48,10 +51,9 @@ app.use('/login', redirectToHome, loginRouter);
 app.use('/logout', redirectToLogin, logoutRouter)
 app.use('/schedule', redirectToLogin, scheduleRouter)
 app.use('/newSchedule', redirectToLogin, newScheduleRouter)
-app.use('/home', homeRouter);
+app.use('/', homeRouter);
 
-//setting static folder
-app.use(express.static(path.join(__dirname, 'public')))
+
 
 
 
