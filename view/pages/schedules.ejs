@@ -12,7 +12,7 @@
         <div class="card-body">
           <h5 class="card-title"><strong>Id:</strong> <%= schedule.schedule_id %> </h5>
           <h5 class="card-title"><strong>Username:</strong> <a href="/home/<%= schedule.user_id %>" class="text-info"><%= userEmail %></a></h5>
-          <p class="card-text"><strong>Day:</strong> <%= schedule.day %></p>
+          <p class="card-text text-capitalize"><strong>Day:</strong> <%= schedule.day %></p>
           <p class="card-text">
             <strong>Time:</strong> <%= schedule.start_time %> - <%=
             schedule.end_time %>

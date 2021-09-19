@@ -155,3 +155,7 @@ idance .timetable {
 .card {
   max-width: 400px;
 }
+
+.hidden {
+  display: none;
+}
